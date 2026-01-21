@@ -8,7 +8,12 @@ const port = process.env.PORT || 8000;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://Girivasanth-pro14.github.io', 'https://girivasanth-pro14.github.io'],
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:8000', 
+    'https://Girivasanth-pro14.github.io',
+    'https://girivasanth-pro14.github.io'
+  ],
   credentials: true
 }));
 
