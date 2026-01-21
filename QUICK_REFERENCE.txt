@@ -1,0 +1,153 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║            TRIBAL HEALTH SCREENING - QUICK REFERENCE CARD               ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 TO START THE APPLICATION
+
+1. Open Terminal 1:
+   cd /Users/girivasanth/Documents/ezyZip/tribal-health-screening/backend
+   source /Users/girivasanth/Documents/ezyZip/venv/bin/activate
+   python -m uvicorn main:app --host 0.0.0.0 --port 8000
+
+2. Open Terminal 2:
+   ngrok http 8000 --log=stdout
+   (Copy the https URL from output)
+
+3. Open Terminal 3:
+   cd /Users/girivasanth/Documents/ezyZip/tribal-health-screening
+   npm start
+
+4. Open Browser:
+   http://localhost:3001
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 URLS
+
+Frontend:           http://localhost:3001
+Backend (local):    http://localhost:8000
+Backend (ngrok):    https://4748148130f8.ngrok-free.app
+ngrok Dashboard:    http://127.0.0.1:4040
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 KEY FILES
+
+Project Directory:
+/Users/girivasanth/Documents/ezyZip/tribal-health-screening/
+
+Important Files:
+- .env ........................ API configuration
+- backend/main.py ............ Backend server
+- src/components/DoctorDashboard.jsx .. Frontend
+- backend/models/ ............ AI models (ResNet, DenseNet, EfficientNet)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 UPDATE NGROK URL (if it changes)
+
+1. Check ngrok dashboard: http://127.0.0.1:4040
+2. Note the new https://XXXXX.ngrok-free.app URL
+3. Edit .env file:
+   REACT_APP_API_URL=https://YOUR_NEW_URL.ngrok-free.app
+4. Restart Terminal 3 (npm start)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ HOW TO USE
+
+1. Open http://localhost:3001
+2. Click "Doctor Dashboard" or login
+3. Click upload area
+4. Select chest X-ray image (JPG/PNG)
+5. Wait for AI analysis
+6. View results: Diagnosis + Confidence + Findings + Recommendations
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 TEST API DIRECTLY
+
+Health Check:
+curl https://4748148130f8.ngrok-free.app/health
+
+Upload X-ray:
+curl -X POST https://4748148130f8.ngrok-free.app/api/predict \
+  -F "file=@xray.jpg"
+
+Recent Scans:
+curl https://4748148130f8.ngrok-free.app/api/recent-scans
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ COMMANDS
+
+Stop everything:
+pkill -f "python\|npm\|ngrok"
+
+Check what's running:
+ps aux | grep -E "python\|npm\|ngrok" | grep -v grep
+
+Check port 8000:
+lsof -i :8000
+
+Check port 3001:
+lsof -i :3001
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎬 AI MODELS AVAILABLE
+
+✅ ResNet
+✅ DenseNet  
+✅ EfficientNet
+
+Classifications:
+- NORMAL
+- PNEUMONIA
+- COVID19
+- TUBERCULOSIS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ TROUBLESHOOTING
+
+Problem: Cannot connect
+Fix: Check all 3 terminals are running, refresh browser
+
+Problem: ngrok URL broken
+Fix: Check ngrok dashboard, update .env, restart npm
+
+Problem: Port already in use
+Fix: pkill -f "python\|npm", wait 2 seconds, restart
+
+Problem: Models not loading
+Fix: Check backend terminal for error messages, verify model files exist
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTATION
+
+Read for more details:
+- FINAL_DEPLOYMENT_REPORT.md .... Complete guide
+- NGROK_DEPLOYMENT.md .......... Deployment details
+- DEPLOYMENT_CONFIG.txt ........ Configuration reference
+- START_HERE.md ................ Getting started
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ EVERYTHING IS READY!
+
+✅ Backend: Running
+✅ Frontend: Running
+✅ AI Models: Loaded
+✅ ngrok: Tunneling
+✅ Connection: Working
+✅ Ready to diagnose X-rays!
+
+Frontend: http://localhost:3001
+Backend:  https://4748148130f8.ngrok-free.app
+
+🚀 GO DIAGNOSE SOME X-RAYS! 🚀
+

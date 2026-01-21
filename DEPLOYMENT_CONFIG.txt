@@ -1,0 +1,191 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║           TRIBAL HEALTH SCREENING - NGROK DEPLOYMENT CONFIG               ║
+║                        LIVE & READY TO USE ✅                              ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 PUBLIC URLS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Backend API (Public - ngrok):
+  https://4748148130f8.ngrok-free.app
+
+Frontend (Local):
+  http://localhost:3001
+  http://192.168.1.6:3001
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔧 SERVICES RUNNING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Backend FastAPI
+   Command: python -m uvicorn main:app --host 0.0.0.0 --port 8000
+   Status: RUNNING
+   Port: 8000
+   Health: https://4748148130f8.ngrok-free.app/health
+
+✅ Frontend React
+   Command: npm start
+   Status: RUNNING
+   Port: 3001
+   URL: http://localhost:3001
+
+✅ ngrok Tunnel
+   Command: ngrok http 8000 --log=stdout
+   Status: ACTIVE
+   URL: https://4748148130f8.ngrok-free.app
+   Dashboard: http://127.0.0.1:4040
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Frontend Environment (.env):
+  REACT_APP_API_URL=https://4748148130f8.ngrok-free.app
+
+Backend CORS Origins:
+  - http://localhost:3000
+  - http://localhost:3001
+  - http://127.0.0.1:3000
+  - http://127.0.0.1:3001
+  - http://192.168.1.6:3000
+  - http://192.168.1.6:3001
+  - https://*.ngrok-free.app
+  - https://*.ngrok.io
+  - * (all origins allowed)
+
+AI Models:
+  ✅ ResNet (resnet_final.keras)
+  ✅ DenseNet (densenet.keras)
+  ✅ EfficientNet (efficientnet.keras)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📡 API ENDPOINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GET /health
+  URL: https://4748148130f8.ngrok-free.app/health
+  Response: {"status":"healthy","models_loaded":true}
+
+POST /api/predict
+  URL: https://4748148130f8.ngrok-free.app/api/predict
+  Body: multipart/form-data with file
+  Response: {
+    "success": true,
+    "disease": "NORMAL|PNEUMONIA|COVID19|TUBERCULOSIS",
+    "confidence": 0.95,
+    "findings": [...],
+    "recommendations": [...]
+  }
+
+GET /api/recent-scans
+  URL: https://4748148130f8.ngrok-free.app/api/recent-scans
+  Response: Array of recent scan records
+
+GET /
+  URL: https://4748148130f8.ngrok-free.app/
+  Response: {"message":"Medical Diagnosis API is running"}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+�� TEST COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Test Backend Connection:
+  curl https://4748148130f8.ngrok-free.app/health
+
+Test Frontend:
+  curl http://localhost:3001
+
+Upload X-ray (replace with real image):
+  curl -X POST https://4748148130f8.ngrok-free.app/api/predict \
+    -F "file=@xray_image.jpg"
+
+Get Recent Scans:
+  curl https://4748148130f8.ngrok-free.app/api/recent-scans
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 FILE LOCATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Project: /Users/girivasanth/Documents/ezyZip/tribal-health-screening/
+Backend: /Users/girivasanth/Documents/ezyZip/tribal-health-screening/backend/
+Frontend: /Users/girivasanth/Documents/ezyZip/tribal-health-screening/src/
+Models: /Users/girivasanth/Documents/ezyZip/tribal-health-screening/backend/models/
+
+Environment Config: .env
+Backend Config: backend/main.py
+Frontend Entry: src/index.js
+Deployment Docs: NGROK_DEPLOYMENT.md, DEPLOYMENT.md, START_HERE.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔐 SECURITY NOTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ SSL/HTTPS: Enabled (ngrok provides)
+✅ CORS: Configured
+✅ File Validation: Image files only
+✅ Error Handling: Graceful fallback
+
+⚠️ Note: This is development deployment. For production:
+  - Use Netlify (frontend) + Railway/Heroku (backend)
+  - Implement authentication
+  - Set up rate limiting
+  - Use environment secrets for API keys
+  - Enable proper logging and monitoring
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡ QUICK COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+View ngrok Dashboard:
+  open http://127.0.0.1:4040
+
+Access Frontend:
+  open http://localhost:3001
+
+Check Backend Health:
+  curl https://4748148130f8.ngrok-free.app/health
+
+Stop All Services:
+  pkill -f "python\|npm\|ngrok"
+
+Restart Everything:
+  cd /Users/girivasanth/Documents/ezyZip
+  ./start_services.sh  # if available, otherwise manually restart
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📞 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Issue: "Cannot connect to AI server"
+Solution: 
+  1. Check ngrok URL hasn't changed (view at http://127.0.0.1:4040)
+  2. Update .env with new URL if changed
+  3. Restart frontend: npm start
+  4. Clear browser cache (Ctrl+Shift+Del)
+
+Issue: ngrok URL expired
+Solution:
+  1. Note new URL from ngrok dashboard
+  2. Update .env file
+  3. Restart frontend
+
+Issue: Frontend not loading
+Solution:
+  1. Check npm start is running: ps aux | grep npm
+  2. Try http://localhost:3001 instead of 3000
+  3. Check for port conflicts: lsof -i :3001
+
+See NGROK_DEPLOYMENT.md for complete troubleshooting guide.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✨ STATUS: DEPLOYED & OPERATIONAL ✨
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Last Updated: 2026-01-21 20:48 IST
+Backend Public URL: https://4748148130f8.ngrok-free.app
+Frontend URL: http://localhost:3001
+AI Models: All Loaded ✅
+All Systems: Operational ✅
+
+READY FOR TESTING & DEPLOYMENT 🚀
