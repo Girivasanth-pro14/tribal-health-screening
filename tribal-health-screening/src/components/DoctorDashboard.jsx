@@ -102,9 +102,9 @@ const DoctorDashboard = ({ onLogout }) => {
   };
 
   return (
-    <div className="doctor-dashboard">
+    <div className="doctor-portal">
       {/* Header */}
-      <div className="dashboard-header">
+      <div className="doctor-header">
         <div className="header-left">
           <h1><i className="fas fa-user-md"></i> Doctor Dashboard</h1>
           <p>AI-Powered Chest X-Ray Analysis</p>
@@ -116,13 +116,14 @@ const DoctorDashboard = ({ onLogout }) => {
         </div>
       </div>
 
-      <div className="dashboard-content">
+      <div className="doctor-main">
         {/* Upload Section */}
-        <div className="upload-section">
-          <h2><i className="fas fa-upload"></i> Upload X-Ray Image</h2>
+        <div className="upload-card">
+          <div className="upload-icon"><i className="fas fa-upload"></i></div>
+          <h2>Analyze X-Ray Image</h2>
           
           <div 
-            className="upload-area"
+            className="upload-zone"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
@@ -153,9 +154,9 @@ const DoctorDashboard = ({ onLogout }) => {
             style={{ display: 'none' }}
           />
 
-          <div className="upload-actions">
+          <div className="action-buttons">
             <button 
-              className="analyze-btn"
+              className="action-btn"
               onClick={analyzeScan}
               disabled={!selectedFile || loading}
             >
@@ -171,7 +172,7 @@ const DoctorDashboard = ({ onLogout }) => {
             </button>
             
             {selectedFile && (
-              <button className="clear-btn" onClick={clearResults}>
+              <button className="delete-btn" onClick={clearResults}>
                 <i className="fas fa-times"></i> Clear
               </button>
             )}
@@ -180,11 +181,12 @@ const DoctorDashboard = ({ onLogout }) => {
 
         {/* Results Section */}
         {prediction && (
-          <div className="results-section">
-            <h2><i className="fas fa-chart-line"></i> Analysis Results</h2>
+          <div className="results-card">
+            <div className="diagnosis-header">
+              <h2><i className="fas fa-chart-line"></i> Analysis Results</h2>
+            </div>
             
-            <div className="result-card">
-              <div className="diagnosis-header">
+            <div className="diagnosis-header">
                 <div 
                   className="diagnosis-badge"
                   style={{ backgroundColor: getDiagnosisColor(prediction.disease) }}
@@ -192,47 +194,42 @@ const DoctorDashboard = ({ onLogout }) => {
                   {prediction.disease}
                 </div>
                 <div className="confidence-score">
-                  Confidence: {prediction.confidence.toFixed(1)}%
-                </div>
-              </div>
-
-              <div className="result-details">
-                <div className="detail-item">
-                  <strong>Severity Level:</strong>
-                  <span className={`severity ${getSeverityLevel(prediction.disease).toLowerCase()}`}>
-                    {getSeverityLevel(prediction.disease)}
-                  </span>
-                </div>
-                
-                <div className="detail-item">
-                  <strong>Timestamp:</strong>
-                  <span>{prediction.timestamp}</span>
+                  <div className="confidence-label">Confidence Level</div>
+                  <div className="confidence-value">{prediction.confidence.toFixed(1)}%</div>
+                  <div className="confidence-bar">
+                    <div 
+                      className="confidence-fill"
+                      style={{ width: `${prediction.confidence}%` }}
+                    ></div>
+                  </div>
                 </div>
               </div>
 
               {/* Probability Breakdown */}
-              <div className="probability-breakdown">
-                <h4>Probability Breakdown:</h4>
+              <div className="confidence-score">
+                <h4>Probability Breakdown</h4>
                 {Object.entries(prediction.probabilities).map(([disease, prob]) => (
-                  <div key={disease} className="prob-item">
-                    <span className="disease-name">{disease}</span>
-                    <div className="prob-bar">
+                  <div key={disease} style={{marginBottom: '15px'}}>
+                    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '5px', fontSize: '14px'}}>
+                      <span className="confidence-label">{disease}</span>
+                      <span className="confidence-value" style={{fontSize: '14px'}}>{prob.toFixed(1)}%</span>
+                    </div>
+                    <div className="confidence-bar">
                       <div 
-                        className="prob-fill"
+                        className="confidence-fill"
                         style={{ 
                           width: `${prob}%`,
                           backgroundColor: getDiagnosisColor(disease)
                         }}
                       ></div>
                     </div>
-                    <span className="prob-value">{prob.toFixed(1)}%</span>
                   </div>
                 ))}
               </div>
 
               {/* Medical Findings */}
               {prediction.findings && (
-                <div className="medical-findings">
+                <div className="findings-section">
                   <h4>Medical Findings:</h4>
                   <ul>
                     {prediction.findings.map((finding, index) => (
@@ -244,7 +241,7 @@ const DoctorDashboard = ({ onLogout }) => {
 
               {/* Recommendations */}
               {prediction.recommendations && (
-                <div className="recommendations">
+                <div className="recommendations-section">
                   <h4>Recommendations:</h4>
                   <ul>
                     {prediction.recommendations.map((rec, index) => (
@@ -259,26 +256,36 @@ const DoctorDashboard = ({ onLogout }) => {
 
         {/* Recent Scans */}
         {recentScans.length > 0 && (
-          <div className="recent-scans">
+          <div className="history-section">
             <h2><i className="fas fa-history"></i> Recent Scans</h2>
-            <div className="scans-list">
-              {recentScans.map((scan) => (
-                <div key={scan.id} className="scan-item">
-                  <div className="scan-info">
-                    <strong>{scan.filename}</strong>
-                    <small>{scan.timestamp}</small>
-                  </div>
-                  <div className="scan-result">
-                    <span 
-                      className="diagnosis-tag"
-                      style={{ backgroundColor: getDiagnosisColor(scan.diagnosis) }}
-                    >
-                      {scan.diagnosis}
-                    </span>
-                    <span className="confidence">{scan.confidence}%</span>
-                  </div>
-                </div>
-              ))}
+            <div className="history-table-container">
+              <table className="history-table">
+                <thead>
+                  <tr>
+                    <th>Filename</th>
+                    <th>Timestamp</th>
+                    <th>Diagnosis</th>
+                    <th>Confidence</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentScans.map((scan) => (
+                    <tr key={scan.id}>
+                      <td>{scan.filename}</td>
+                      <td>{scan.timestamp}</td>
+                      <td>
+                        <span 
+                          className="diagnosis-badge"
+                          style={{ backgroundColor: getDiagnosisColor(scan.diagnosis) }}
+                        >
+                          {scan.diagnosis}
+                        </span>
+                      </td>
+                      <td className="confidence-cell">{scan.confidence}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         )}
