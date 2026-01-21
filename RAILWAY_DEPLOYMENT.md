@@ -1,0 +1,23 @@
+#!/bin/bash
+# Railway Deployment Guide
+
+echo "🚀 Deploying Tribal Health Screening Backend to Railway"
+echo ""
+echo "Prerequisites:"
+echo "1. Create a Railway account at https://railway.app"
+echo "2. Install Railway CLI: npm i -g @railway/cli"
+echo "3. Authenticate: railway login"
+echo ""
+echo "Deployment steps:"
+echo "1. cd tribal-health-screening-backend"
+echo "2. railway init (select 'Create a new project')"
+echo "3. railway up (this will deploy the backend)"
+echo ""
+echo "After deployment:"
+echo "1. Get your backend URL: railway logs (look for the public URL)"
+echo "2. Update the frontend API endpoint in src/config/api.js"
+echo "3. Rebuild and deploy frontend"
+echo ""
+echo "Example Railway logs output:"
+echo "  ...your-railway-project.up.railway.app"
+echo ""
