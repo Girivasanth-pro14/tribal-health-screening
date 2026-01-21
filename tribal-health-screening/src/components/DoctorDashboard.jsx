@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './DoctorDashboard.css';
+import { API_ENDPOINTS } from '../config/api';
 
 const DoctorDashboard = ({ onLogout }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -42,7 +43,7 @@ const DoctorDashboard = ({ onLogout }) => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:8000/api/predict', {
+      const response = await fetch(API_ENDPOINTS.predict, {
         method: 'POST',
         body: formData,
       });
