@@ -49,7 +49,7 @@ const DoctorDashboard = ({ onLogout }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Analysis failed');
+        throw new Error(`Backend error: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
@@ -67,7 +67,13 @@ const DoctorDashboard = ({ onLogout }) => {
 
     } catch (error) {
       console.error('Analysis error:', error);
-      alert('Failed to analyze X-ray. Please try again.');
+      
+      // Check if backend is unreachable
+      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+        alert(`⚠️ Backend not reachable at ${API_ENDPOINTS.predict}\n\nThe backend needs to be deployed to a public server (Railway, Heroku, etc.) for predictions to work on GitHub Pages.\n\nFor now, you can:\n1. Run the backend locally: npm start in tribal-health-screening-backend/\n2. Use the app from http://localhost:3000 instead of GitHub Pages`);
+      } else {
+        alert(`❌ Analysis failed: ${error.message}\n\nPlease try again or contact support.`);
+      }
     } finally {
       setLoading(false);
     }
